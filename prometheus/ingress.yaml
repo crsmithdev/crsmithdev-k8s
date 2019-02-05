@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    # nginx.ingress.kubernetes.io/rewrite-target: /$1
+    # certmanager.k8s.io/issuer: letsencrypt-staging
+    # certmanager.k8s.io/acme-challenge-type: http01
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    app: prometheus
+    chart: prometheus-8.4.7
+    component: server
+    heritage: Tiller
+    release: prometheus
+  name: prometheus-server
+spec:
+  # tls:
+  # - hosts:
+  #   - crsmithdev.com
+  #   secretName: crsmithdev-tls
+  rules:
+  - host: crsmithdev.com
+    http:
+      paths:
+      - backend:
+          serviceName: prometheus-server
+          servicePort: 80
+        path: /prometheus/
