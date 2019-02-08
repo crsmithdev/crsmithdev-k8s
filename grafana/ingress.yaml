@@ -15,7 +15,7 @@ spec:
   - host: data.crsmithdev.com
     http:
       paths:
-      - path: /grafana
+      - path: /
         backend:
           serviceName: grafana
           servicePort: 80
